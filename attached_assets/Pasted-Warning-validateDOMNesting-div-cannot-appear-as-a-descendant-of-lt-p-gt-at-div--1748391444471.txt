@@ -1,0 +1,25 @@
+Warning: validateDOMNesting(...): <div> cannot appear as a descendant of &lt;p&gt;.
+    at div
+    at Skeleton (https://69fd8ccd-bf1d-408c-9b3d-256c0bb46bd4-00-3bta7qipmmu6y.picard.replit.dev:5173/src/components/ui/skeleton.tsx:19:3)
+    at p
+    at div
+    at div
+    at div
+    at _c9 (https://69fd8ccd-bf1d-408c-9b3d-256c0bb46bd4-00-3bta7qipmmu6y.picard.replit.dev:5173/src/components/ui/card.tsx:106:12)
+    at div
+    at _c (https://69fd8ccd-bf1d-408c-9b3d-256c0bb46bd4-00-3bta7qipmmu6y.picard.replit.dev:5173/src/components/ui/card.tsx:20:11)
+    at div
+    at div
+    at main
+    at div
+    at AppLayout (https://69fd8ccd-bf1d-408c-9b3d-256c0bb46bd4-00-3bta7qipmmu6y.picard.replit.dev:5173/src/components/layouts/AppLayout.tsx:23:22)
+    at Reports (https://69fd8ccd-bf1d-408c-9b3d-256c0bb46bd4-00-3bta7qipmmu6y.picard.replit.dev:5173/src/pages/Reports.tsx:31:20)
+    at RenderedRoute (https://69fd8ccd-bf1d-408c-9b3d-256c0bb46bd4-00-3bta7qipmmu6y.picard.replit.dev:5173/node_modules/.vite/deps/react-router-dom.js?v=1ae4710f:4069:5)
+    at Routes (https://69fd8ccd-bf1d-408c-9b3d-256c0bb46bd4-00-3bta7qipmmu6y.picard.replit.dev:5173/node_modules/.vite/deps/react-router-dom.js?v=1ae4710f:4508:5)
+    at Router (https://69fd8ccd-bf1d-408c-9b3d-256c0bb46bd4-00-3bta7qipmmu6y.picard.replit.dev:5173/node_modules/.vite/deps/react-router-dom.js?v=1ae4710f:4451:15)
+    at BrowserRouter (https://69fd8ccd-bf1d-408c-9b3d-256c0bb46bd4-00-3bta7qipmmu6y.picard.replit.dev:5173/node_modules/.vite/deps/react-router-dom.js?v=1ae4710f:5196:5)
+    at AuthProvider (https://69fd8ccd-bf1d-408c-9b3d-256c0bb46bd4-00-3bta7qipmmu6y.picard.replit.dev:5173/src/contexts/AuthContext.tsx:22:32)
+    at Provider (https://69fd8ccd-bf1d-408c-9b3d-256c0bb46bd4-00-3bta7qipmmu6y.picard.replit.dev:5173/node_modules/.vite/deps/chunk-ZLK6P5VQ.js?v=1ae4710f:48:15)
+    at TooltipProvider (https://69fd8ccd-bf1d-408c-9b3d-256c0bb46bd4-00-3bta7qipmmu6y.picard.replit.dev:5173/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=1ae4710f:58:5)
+    at QueryClientProvider (https://69fd8ccd-bf1d-408c-9b3d-256c0bb46bd4-00-3bta7qipmmu6y.picard.replit.dev:5173/node_modules/.vite/deps/@tanstack_react-query.js?v=1ae4710f:2794:3)
+    at App
