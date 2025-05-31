@@ -4,10 +4,15 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
+  base: "/",
+  build: {
+    outDir: "dist",
+    sourcemap: false,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
-    extensions: [".js", ".ts", ".tsx", ".jsx", ".json"], // adiciona suporte para várias extensões
+    extensions: [".js", ".ts", ".tsx", ".jsx", ".json"],
   },
 });
