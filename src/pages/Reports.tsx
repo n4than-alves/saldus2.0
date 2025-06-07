@@ -68,23 +68,30 @@ const Reports = () => {
 
       // Inicializar os últimos 6 meses com zero
       const today = new Date();
+      const monthKeys: string[] = [];
+      
       for (let i = 5; i >= 0; i--) {
-        const date = new Date();
-        date.setMonth(today.getMonth() - i);
+        const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
         const monthYear = date.toLocaleString('pt-BR', { month: 'short', year: '2-digit' });
+        monthKeys.push(monthYear);
         monthlyDataMap.set(monthYear, { income: 0, expense: 0 });
       }
 
       // Processar transações
       transactions?.forEach(transaction => {
-        const date = new Date(transaction.date);
-        const monthYear = date.toLocaleString('pt-BR', { month: 'short', year: '2-digit' });
-
-        // Só incluir nos gráficos mensais se estiver nos últimos 6 meses
-        const sixMonthsAgo = new Date();
-        sixMonthsAgo.setMonth(today.getMonth() - 5);
+        // Parse da data da transação de forma mais precisa, considerando timezone local
+        const dateParts = transaction.date.split('-');
+        const transactionDate = new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]));
         
-        if (date >= sixMonthsAgo) {
+        // Criar chave do mês de forma consistente
+        const monthYear = new Date(transactionDate.getFullYear(), transactionDate.getMonth(), 1)
+          .toLocaleString('pt-BR', { month: 'short', year: '2-digit' });
+
+        // Verificar se a transação está nos últimos 6 meses
+        const sixMonthsAgo = new Date(today.getFullYear(), today.getMonth() - 5, 1);
+        const transactionMonthStart = new Date(transactionDate.getFullYear(), transactionDate.getMonth(), 1);
+        
+        if (transactionMonthStart >= sixMonthsAgo) {
           const currentMonthData = monthlyDataMap.get(monthYear) || { income: 0, expense: 0 };
 
           if (transaction.type === 'income') {
@@ -234,7 +241,7 @@ const Reports = () => {
                   <Tooltip 
                     formatter={(value, name) => [
                       formatCurrency(value as number), 
-                      name === 'income' ? 'Receitas' : name === 'expense' ? 'Despesas' : name
+                      name === 'income' ? 'Receitas' : name === 'expense' ?                       'Despesas' : name
                     ]}
                     labelFormatter={(label) => `Mês: ${label}`}
                   />
