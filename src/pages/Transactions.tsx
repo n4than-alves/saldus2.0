@@ -296,13 +296,11 @@ const Transactions = () => {
 
     setIsSubmitting(true);
     try {
-      // Fix date handling by adding one day to the selected date
-      const selectedDate = new Date(data.date);
-      selectedDate.setDate(selectedDate.getDate() + 1); // Add one day to fix timezone issues
-      const correctedDate = selectedDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+      // Use the date as selected without modification
+      const correctedDate = data.date; // Use the original date without adding extra day
 
       console.log('Original date:', data.date);
-      console.log('Corrected date for saving:', correctedDate);
+      console.log('Date for saving:', correctedDate);
 
       const transactionData = {
         user_id: user.id,
