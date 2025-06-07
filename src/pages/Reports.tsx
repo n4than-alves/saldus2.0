@@ -234,7 +234,7 @@ const Reports = () => {
                   <Tooltip 
                     formatter={(value, name) => [
                       formatCurrency(value as number), 
-                      name === 'income' ? 'Receitas' : 'Despesas'
+                      name === 'income' ? 'Receitas' : name === 'expense' ? 'Despesas' : name
                     ]}
                     labelFormatter={(label) => `Mês: ${label}`}
                   />
