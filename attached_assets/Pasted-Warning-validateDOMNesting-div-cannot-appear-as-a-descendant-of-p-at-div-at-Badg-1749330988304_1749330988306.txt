@@ -1,0 +1,25 @@
+Warning: validateDOMNesting(...): <div> cannot appear as a descendant of <p>.
+    at div
+    at Badge (https://31e19072-612a-43a7-9847-5a49cb8aa111-00-kgxzh468h1f5.kirk.replit.dev:5173/src/components/ui/badge.tsx:35:18)
+    at p
+    at _c7 (https://31e19072-612a-43a7-9847-5a49cb8aa111-00-kgxzh468h1f5.kirk.replit.dev:5173/src/components/ui/card.tsx:86:12)
+    at div
+    at div
+    at _c3 (https://31e19072-612a-43a7-9847-5a49cb8aa111-00-kgxzh468h1f5.kirk.replit.dev:5173/src/components/ui/card.tsx:43:12)
+    at div
+    at _c (https://31e19072-612a-43a7-9847-5a49cb8aa111-00-kgxzh468h1f5.kirk.replit.dev:5173/src/components/ui/card.tsx:20:11)
+    at div
+    at div
+    at main
+    at div
+    at AppLayout (https://31e19072-612a-43a7-9847-5a49cb8aa111-00-kgxzh468h1f5.kirk.replit.dev:5173/src/components/layouts/AppLayout.tsx:23:22)
+    at Reports (https://31e19072-612a-43a7-9847-5a49cb8aa111-00-kgxzh468h1f5.kirk.replit.dev:5173/src/pages/Reports.tsx:33:20)
+    at RenderedRoute (https://31e19072-612a-43a7-9847-5a49cb8aa111-00-kgxzh468h1f5.kirk.replit.dev:5173/node_modules/.vite/deps/react-router-dom.js?v=1d0b623d:4069:5)
+    at Routes (https://31e19072-612a-43a7-9847-5a49cb8aa111-00-kgxzh468h1f5.kirk.replit.dev:5173/node_modules/.vite/deps/react-router-dom.js?v=1d0b623d:4508:5)
+    at Router (https://31e19072-612a-43a7-9847-5a49cb8aa111-00-kgxzh468h1f5.kirk.replit.dev:5173/node_modules/.vite/deps/react-router-dom.js?v=1d0b623d:4451:15)
+    at BrowserRouter (https://31e19072-612a-43a7-9847-5a49cb8aa111-00-kgxzh468h1f5.kirk.replit.dev:5173/node_modules/.vite/deps/react-router-dom.js?v=1d0b623d:5196:5)
+    at AuthProvider (https://31e19072-612a-43a7-9847-5a49cb8aa111-00-kgxzh468h1f5.kirk.replit.dev:5173/src/contexts/AuthContext.tsx:22:32)
+    at Provider (https://31e19072-612a-43a7-9847-5a49cb8aa111-00-kgxzh468h1f5.kirk.replit.dev:5173/node_modules/.vite/deps/chunk-I6SEKEX4.js?v=1d0b623d:48:15)
+    at TooltipProvider (https://31e19072-612a-43a7-9847-5a49cb8aa111-00-kgxzh468h1f5.kirk.replit.dev:5173/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=1d0b623d:58:5)
+    at QueryClientProvider (https://31e19072-612a-43a7-9847-5a49cb8aa111-00-kgxzh468h1f5.kirk.replit.dev:5173/node_modules/.vite/deps/@tanstack_react-query.js?v=1d0b623d:2794:3)
+    at App
