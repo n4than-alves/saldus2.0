@@ -159,11 +159,7 @@ const Dashboard = () => {
   return (
     <AppLayout>
       <div className="mb-8">
-<<<<<<< HEAD
-        <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
-=======
         <h1 className="text-2xl font-bold text-gray-800">Painel</h1>
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
         <p className="text-gray-500">
           Bem-vindo ao Saldus, {user?.fullName || user?.email}!
         </p>
@@ -265,11 +261,7 @@ const Dashboard = () => {
                           {formatCurrency(transaction.amount)}
                         </p>
                         <p className="text-right text-xs text-gray-500">
-<<<<<<< HEAD
-                          {new Date(transaction.date).toLocaleDateString()}
-=======
                           {new Date(transaction.date + 'T00:00:00').toLocaleDateString('pt-BR')}
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
                         </p>
                       </div>
                     </div>
@@ -338,11 +330,6 @@ const Dashboard = () => {
                           } transações esta semana.`
                         : 'Você atingiu o limite de transações desta semana.'}
                     </p>
-<<<<<<< HEAD
-                    <p className="mt-2 text-sm font-medium text-saldus-700">
-                      Atualize para o Plano Pro por R$40/mês e tenha transações ilimitadas!
-                    </p>
-=======
                     <div className="mt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                       <p className="text-sm font-medium text-saldus-700">
                         Atualize para o Plano Pro por R$80/mês e tenha transações ilimitadas!
@@ -354,7 +341,6 @@ const Dashboard = () => {
                         Upgrade para Pro
                       </button>
                     </div>
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
                   </div>
                 </div>
               </div>
@@ -366,8 +352,4 @@ const Dashboard = () => {
   );
 };
 
-<<<<<<< HEAD
 export default Dashboard;
-=======
-export default Dashboard;
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)

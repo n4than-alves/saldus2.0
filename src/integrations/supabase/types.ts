@@ -111,8 +111,6 @@ export type Database = {
         }
         Relationships: []
       }
-<<<<<<< HEAD
-=======
       goals: {
         Row: {
           id: string
@@ -152,7 +150,6 @@ export type Database = {
         }
         Relationships: []
       }
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
       transactions: {
         Row: {
           amount: number

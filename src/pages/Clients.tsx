@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
-<<<<<<< HEAD
-=======
 import { useNavigate } from 'react-router-dom';
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabaseClient';
 import { Client } from '@/types';
@@ -35,13 +32,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
-<<<<<<< HEAD
-import { useSubscription } from '@/hooks/use-subscription';
-import { Plus, Pencil, Trash2, Search, Loader2 } from 'lucide-react';
-=======
 import { useSubscription } from '@/hooks/use-subscription'; // Seu hook de assinatura
 import { Plus, Pencil, Trash2, Search, Loader2, Crown } from 'lucide-react';
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -56,10 +48,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-<<<<<<< HEAD
-=======
 import { Card, CardContent } from '@/components/ui/card';
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
 
 const clientSchema = z.object({
   name: z.string().min(3, 'Nome deve ter no mínimo 3 caracteres'),
@@ -76,13 +65,6 @@ interface WeeklyLimit {
 }
 
 const Clients = () => {
-<<<<<<< HEAD
-  const { user } = useAuth();
-  const { toast } = useToast();
-  const { planType } = useSubscription();
-  const [clients, setClients] = useState<Client[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-=======
   const { user, isLoading: isLoadingAuth } = useAuth(); // Status de carregamento da autenticação
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -92,7 +74,6 @@ const Clients = () => {
   const [clients, setClients] = useState<Client[]>([]);
   // ✅ Renomeei para ser mais específico: 'isLoadingData' indica que estamos esperando clientes E limite
   const [isLoadingData, setIsLoadingData] = useState(true); 
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
   const [openDialog, setOpenDialog] = useState(false);
   const [editingClient, setEditingClient] = useState<Client | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -113,23 +94,13 @@ const Clients = () => {
   });
 
   const loadClients = async () => {
-<<<<<<< HEAD
-    if (!user) return;
-
-    setIsLoading(true);
-=======
     // Não precisamos de user check aqui, pois o useEffect pai já fará isso
     // e o estado isLoadingData já cobrirá esse período.
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
     try {
       const { data, error } = await supabase
         .from('clients')
         .select('*')
-<<<<<<< HEAD
-        .eq('user_id', user.id)
-=======
         .eq('user_id', user!.id) // user será não-nulo aqui devido à condição do useEffect
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
         .order('name');
 
       if (error) throw error;
@@ -142,38 +113,10 @@ const Clients = () => {
         description: error.message,
         variant: 'destructive',
       });
-<<<<<<< HEAD
-    } finally {
-      setIsLoading(false);
-      checkWeeklyClientLimit();
-=======
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
     }
   };
 
   const checkWeeklyClientLimit = async () => {
-<<<<<<< HEAD
-    if (!user) return;
-
-    try {
-      // Se for usuário Pro, sempre pode criar
-      if (planType === 'pro') {
-        setWeeklyLimit({
-          count: 0,
-          limit: Infinity,
-          canCreate: true
-        });
-        return;
-      }
-
-      const oneWeekAgo = new Date();
-      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-      
-      const { count, error } = await supabase
-        .from('clients')
-        .select('*', { count: 'exact', head: true })
-        .eq('user_id', user.id)
-=======
     // Não precisamos de user check aqui, pois o useEffect pai já fará isso.
     // ✅ É crucial que checkWeeklyClientLimit só seja chamado após planType ser conhecido
     // Este `if` foi movido para o useEffect principal.
@@ -194,37 +137,22 @@ const Clients = () => {
         .from('clients')
         .select('*', { count: 'exact', head: true })
         .eq('user_id', user!.id) // user será não-nulo aqui
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
         .gte('created_at', oneWeekAgo.toISOString());
 
       if (error) throw error;
 
-<<<<<<< HEAD
-      const weeklyLimit = 5; // Limite para usuários free
-      const canCreate = (count as number) < weeklyLimit;
-
-      setWeeklyLimit({
-        count: count as number,
-        limit: weeklyLimit,
-=======
       const currentWeeklyLimit = 5; // Limite para usuários free
       const canCreate = (count as number) < currentWeeklyLimit;
 
       setWeeklyLimit({
         count: count as number,
         limit: currentWeeklyLimit,
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
         canCreate
       });
     } catch (error) {
       console.error('Error checking weekly limit:', error);
-<<<<<<< HEAD
-      // Em caso de erro, permitir criação para usuários Pro
-      if (planType === 'pro') {
-=======
       // ✅ Garante que em caso de erro na checagem, usuários Pro ainda podem criar
       if (planType === 'pro') { 
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
         setWeeklyLimit({
           count: 0,
           limit: Infinity,
@@ -234,17 +162,6 @@ const Clients = () => {
     }
   };
 
-<<<<<<< HEAD
-  useEffect(() => {
-    if (user) {
-      loadClients();
-      checkWeeklyClientLimit();
-    }
-  }, [user]);
-
-  const handleOpenDialog = (client?: Client) => {
-    // Só verificar limite se for usuário free e não estiver editando
-=======
   // ✅ useEffect principal para orquestrar o carregamento inicial de TUDO
   useEffect(() => {
     // Só inicia o carregamento dos clientes/limites se o usuário e a assinatura
@@ -275,7 +192,6 @@ const Clients = () => {
 
   const handleOpenDialog = (client?: Client) => {
     // ✅ A validação de limite agora usa o weeklyLimit que já foi atualizado pelo useEffect
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
     if (planType === 'free' && !weeklyLimit.canCreate && !client) {
       toast({
         title: 'Limite de clientes atingido',
@@ -349,14 +265,9 @@ const Clients = () => {
       }
 
       setOpenDialog(false);
-<<<<<<< HEAD
-      loadClients();
-      checkWeeklyClientLimit();
-=======
       // ✅ Recarrega clientes e limite após sucesso na criação/edição
       await loadClients(); 
       await checkWeeklyClientLimit(); 
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
     } catch (error: any) {
       console.error('Error saving client:', error);
       toast({
@@ -380,14 +291,9 @@ const Clients = () => {
         description: 'O cliente foi removido com sucesso.',
       });
 
-<<<<<<< HEAD
-      loadClients();
-      checkWeeklyClientLimit();
-=======
       // ✅ Recarrega clientes e limite após sucesso na exclusão
       await loadClients(); 
       await checkWeeklyClientLimit(); 
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
     } catch (error: any) {
       console.error('Error deleting client:', error);
       toast({
@@ -404,10 +310,6 @@ const Clients = () => {
     (client.phone?.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-<<<<<<< HEAD
-  return (
-    <AppLayout>
-=======
   // ✅ O estado global de carregamento agora inclui todos os hooks de dados importantes
   const showGlobalLoading = isLoadingAuth || isLoadingSubscription || isLoadingData;
 
@@ -437,7 +339,6 @@ const Clients = () => {
         </Card>
       )}
 
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
       <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Clientes</h1>
@@ -455,18 +356,11 @@ const Clients = () => {
           </div>
           <Dialog open={openDialog} onOpenChange={setOpenDialog}>
             <DialogTrigger asChild>
-<<<<<<< HEAD
-              <Button 
-                className="gap-1 bg-saldus-600 hover:bg-saldus-700" 
-                onClick={() => handleOpenDialog()}
-                disabled={planType === 'free' && !weeklyLimit.canCreate}
-=======
               {/* ✅ Desabilita o botão enquanto estiver carregando ou se o limite for atingido */}
               <Button
                 className="gap-1 bg-saldus-600 hover:bg-saldus-700"
                 disabled={showGlobalLoading || (planType === 'free' && !weeklyLimit.canCreate)}
                 onClick={() => handleOpenDialog()}
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
               >
                 <Plus className="h-4 w-4" /> Novo
               </Button>
@@ -549,12 +443,8 @@ const Clients = () => {
         </div>
       </div>
 
-<<<<<<< HEAD
-      {isLoading ? (
-=======
       {/* ✅ Mostra o spinner de carregamento global */}
       {showGlobalLoading ? (
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
         <div className="flex justify-center py-8">
           <Loader2 className="h-8 w-8 animate-spin text-saldus-600" />
         </div>
@@ -604,19 +494,11 @@ const Clients = () => {
                               <AlertDialogTitle>
                                 Confirmar exclusão
                               </AlertDialogTitle>
-<<<<<<< HEAD
-                              <AlertDialogDescription>
-                                Tem certeza que deseja excluir este cliente?
-                                Esta ação não pode ser desfeita.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-=======
                             </AlertDialogHeader>
                             <AlertDialogDescription>
                                 Tem certeza que deseja excluir este cliente?
                                 Esta ação não pode ser desfeita.
                             </AlertDialogDescription>
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
                             <AlertDialogFooter>
                               <AlertDialogCancel>Cancelar</AlertDialogCancel>
                               <AlertDialogAction
@@ -641,8 +523,4 @@ const Clients = () => {
   );
 };
 
-<<<<<<< HEAD
 export default Clients;
-=======
-export default Clients;
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)

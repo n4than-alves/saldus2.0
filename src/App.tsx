@@ -11,10 +11,7 @@ import Clients from "./pages/Clients";
 import Transactions from "./pages/Transactions";
 import Settings from "./pages/Settings";
 import Reports from "./pages/Reports";
-<<<<<<< HEAD
-=======
 import Goals from "./pages/Goals";
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
 import NotFound from "./pages/NotFound";
 import ResetPassword from "./pages/ResetPassword";
 import RecuperarSenha from "./pages/RecuperarSenha";
@@ -48,10 +45,7 @@ const App = () => {
                 <Route path="/clients" element={<Clients />} />
                 <Route path="/transactions" element={<Transactions />} />
                 <Route path="/reports" element={<Reports />} />
-<<<<<<< HEAD
-=======
                 <Route path="/goals" element={<Goals />} />
->>>>>>> 53213e8 (Primeiro commit da nova versão do projeto)
                 <Route path="/settings" element={<Settings />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
