@@ -7,14 +7,12 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// Helper para logar cada etapa do processo
 const logStep = (step: string, details?: any) => {
   const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
   console.log(`[CREATE-CHECKOUT] ${step}${detailsStr}`);
 };
 
 serve(async (req) => {
-  // Lidar com requisições OPTIONS para CORS
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
@@ -22,18 +20,15 @@ serve(async (req) => {
   try {
     logStep("Função iniciada");
 
-    // Obter chave secreta do Stripe
     const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
     if (!stripeKey) throw new Error("STRIPE_SECRET_KEY não está configurada");
     logStep("Chave Stripe verificada");
 
-    // Inicializar cliente Supabase para autenticação
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_ANON_KEY") ?? ""
     );
 
-    // Autenticar usuário
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) throw new Error("Cabeçalho de autorização não fornecido");
     const token = authHeader.replace("Bearer ", "");
@@ -44,18 +39,15 @@ serve(async (req) => {
     if (!user?.email) throw new Error("Usuário não autenticado ou email não disponível");
     logStep("Usuário autenticado", { userId: user.id, email: user.email });
 
-    // Inicializar Stripe
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
-    
-    // Verificar se o cliente já existe no Stripe
+
     const customers = await stripe.customers.list({ email: user.email, limit: 1 });
     let customerId;
-    
+
     if (customers.data.length > 0) {
       customerId = customers.data[0].id;
       logStep("Cliente Stripe encontrado", { customerId });
     } else {
-      // Criar novo cliente no Stripe
       const customer = await stripe.customers.create({
         email: user.email,
         name: user.user_metadata?.fullName || null,
@@ -67,28 +59,19 @@ serve(async (req) => {
       logStep("Novo cliente Stripe criado", { customerId });
     }
 
-    // Criar sessão de checkout para assinatura
+    // Substitua abaixo com o ID do price criado no Stripe Dashboard
+    const priceId = "prod_SNSao6nQ5ZDlll"; // <-- Coloque aqui o ID real do seu preço
+
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       payment_method_types: ['card', 'boleto'],
       line_items: [
         {
-          price_data: {
-            currency: 'brl',
-            product_data: {
-              name: 'Plano Pro',
-              description: 'Assinatura mensal Saldus - Plano Pro',
-            },
-            unit_amount: 8000, // R$80,00 em centavos
-            recurring: {
-              interval: 'month',
-            },
-          },
+          price: priceId,
           quantity: 1,
         },
       ],
       mode: 'subscription',
-      // ADICIONE ESTA LINHA AQUI PARA HABILITAR CUPONS:
       allow_promotion_codes: true, // Isso habilita o campo de cupom no Stripe Checkout
       success_url: `${req.headers.get("origin") || "https://saldus.vercel.app"}/dashboard?checkout=success`,
       cancel_url: `${req.headers.get("origin") || "https://saldus.vercel.app"}/dashboard?checkout=cancelled`,
