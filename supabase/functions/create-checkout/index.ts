@@ -60,7 +60,7 @@ serve(async (req) => {
     }
 
     // Substitua abaixo com o ID do price criado no Stripe Dashboard
-    const priceId = "prod_SNSao6nQ5ZDlll"; // <-- Coloque aqui o ID real do seu preço
+    const priceId = "prod_SNSao6nQ5ZDlll"; // <-- commit para vercel
 
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
