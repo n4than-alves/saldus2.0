@@ -25,10 +25,10 @@ serve(async (req) => {
     logStep("Chave Stripe verificada");
 
     const supabaseClient = createClient(
-      Deno.env.get("SUPABASE_URL") ?? "",
-      Deno.env.get("SUPABASE_ANON_KEY") ?? ""
-    );
-
+  Deno.env.get("SUPABASE_URL") ?? "",
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
+  { auth: { persistSession: false } }
+);
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) throw new Error("Cabeçalho de autorização não fornecido");
     const token = authHeader.replace("Bearer ", "");
