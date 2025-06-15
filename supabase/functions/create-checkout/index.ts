@@ -90,8 +90,8 @@ serve(async (req) => {
       mode: 'subscription',
       // ADICIONE ESTA LINHA AQUI PARA HABILITAR CUPONS:
       allow_promotion_codes: true, // Isso habilita o campo de cupom no Stripe Checkout
-      success_url: `${req.headers.get("origin") || "https://app.saldus.com.br"}/dashboard?checkout=success`,
-      cancel_url: `${req.headers.get("origin") || "https://app.saldus.com.br"}/dashboard?checkout=cancelled`,
+      success_url: `${req.headers.get("origin") || "https://saldus.vercel.app"}/dashboard?checkout=success`,
+      cancel_url: `${req.headers.get("origin") || "https://saldus.vercel.app"}/dashboard?checkout=cancelled`,
     });
 
     logStep("Sessão de checkout criada", { checkoutUrl: session.url });
